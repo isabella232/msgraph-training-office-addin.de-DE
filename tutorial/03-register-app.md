@@ -1,14 +1,14 @@
 ---
-ms.openlocfilehash: a336095a238eefeae22dac86d29e3140e8d94bf1
-ms.sourcegitcommit: 24bb4b3df6a035806a58b609e1d8078ac5505fa1
+ms.openlocfilehash: 89bc4baff47ae895c7c0dfd34a8f8d4d0da091f5
+ms.sourcegitcommit: 8a65c826f6b229c287a782d784b6d9629aa5a3d0
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 02/17/2021
-ms.locfileid: "50274263"
+ms.lasthandoff: 04/20/2021
+ms.locfileid: "51899433"
 ---
 <!-- markdownlint-disable MD002 MD041 -->
 
-In dieser Übung erstellen Sie eine neue Azure AD-Webanwendungsregistrierung mithilfe des Azure Active Directory Admin Centers.
+In dieser Übung erstellen Sie eine neue Azure AD-Webanwendungsregistrierung mit dem Azure Active Directory Admin Center.
 
 1. Öffnen Sie einen Browser, und navigieren Sie zum [Azure Active Directory Admin Center](https://aad.portal.azure.com). Melden Sie sich mit einem **persönlichen Konto** (auch: Microsoft-Konto) oder einem **Geschäfts- oder Schulkonto** an.
 
@@ -24,9 +24,13 @@ In dieser Übung erstellen Sie eine neue Azure AD-Webanwendungsregistrierung mit
 
     ![Screenshot der Seite "Anwendung registrieren"](images/register-an-app.png)
 
-1. Wählen Sie **Registrieren** aus. Kopieren Sie auf der Lernprogrammseite des **Office-Add-In-Diagramms** den Wert der **Anwendungs-ID (Client-ID),** und speichern Sie ihn. Sie benötigen ihn im nächsten Schritt.
+1. Wählen Sie **Registrieren** aus. Kopieren Sie auf der **Seite Office-Add-In-Graph-Lernprogramm** den Wert der **Anwendungs-ID (Client-ID),** und speichern Sie sie, sie benötigen Sie im nächsten Schritt.
 
     ![Screenshot der Anwendungs-ID der neuen App-Registrierung](images/application-id.png)
+
+1. Wählen Sie unter **Verwalten** die Option **Authentifizierung** aus. Suchen Sie den **Abschnitt Implizite** Erteilung, und aktivieren **Sie Zugriffstoken und** **ID-Token.** Klicken Sie auf **Speichern**.
+
+    ![Screenshot des Abschnitts "Implizite Gewährung"](./images/aad-implicit-grant.png)
 
 1. Wählen Sie unter **Verwalten** die Option **Zertifikate und Geheime Clientschlüssel** aus. Wählen Sie die Schaltfläche **Neuen geheimen Clientschlüssel** aus. Geben Sie einen Wert in **Beschreibung** ein, wählen Sie eine der Optionen für **Gilt bis** aus, und wählen Sie dann **Hinzufügen** aus.
 
@@ -35,37 +39,37 @@ In dieser Übung erstellen Sie eine neue Azure AD-Webanwendungsregistrierung mit
     > [!IMPORTANT]
     > Dieser geheime Clientschlüssel wird nicht noch einmal angezeigt, stellen Sie daher sicher, dass Sie ihn jetzt kopieren.
 
-1. Wählen Sie **unter** **"Verwalten"** die BERECHTIGUNG "API-Berechtigungen" und dann **"Berechtigung hinzufügen" aus.**
+1. Wählen **Sie unter** Verwalten die Option **API-Berechtigungen** aus, und wählen Sie dann Berechtigung **hinzufügen aus.**
 
-1. Wählen **Sie Microsoft Graph** und dann delegierte Berechtigungen **aus.**
+1. Wählen **Sie Microsoft Graph** und dann Delegierte Berechtigungen **aus.**
 
-1. Wählen Sie die folgenden Berechtigungen und dann "Berechtigungen **hinzufügen" aus.**
+1. Wählen Sie die folgenden Berechtigungen aus, und wählen Sie **dann Berechtigungen hinzufügen aus.**
 
-    - **offline_access** - Dadurch kann die App Zugriffstoken aktualisieren, wenn sie ablaufen.
-    - **Calendars.ReadWrite** – Dadurch kann die App den Kalender des Benutzers lesen und in den Kalender schreiben.
-    - **MailboxSettings.Read** – Dadurch kann die App die Zeitzone des Benutzers aus seinen Postfacheinstellungen erhalten.
+    - **offline_access** : Dadurch kann die App Zugriffstoken aktualisieren, wenn sie ablaufen.
+    - **Calendars.ReadWrite** – dadurch kann die App den Kalender des Benutzers lesen und schreiben.
+    - **MailboxSettings.Read** – Dadurch kann die App die Zeitzone des Benutzers aus den Postfacheinstellungen erhalten.
 
     ![Screenshot der konfigurierten Berechtigungen](images/configured-permissions.png)
 
 ## <a name="configure-office-add-in-single-sign-on"></a>Konfigurieren des einmaligen Anmeldens für Office-Add-Ins
 
-In diesem Abschnitt aktualisieren Sie die App-Registrierung, um [einmaliges Anmelden (Single Sign-On, SSO) für Office-Add-Ins zu unterstützen.](https://docs.microsoft.com/office/dev/add-ins/develop/sso-in-office-add-ins)
+In diesem Abschnitt aktualisieren Sie die App-Registrierung, um [office add-in single sign-on (SSO) zu unterstützen.](https://docs.microsoft.com/office/dev/add-ins/develop/sso-in-office-add-ins)
 
-1. Select **Expose an API**. Wählen Sie **in den durch diesen ABSCHNITT definierten** Bereiche die Option **"Bereich hinzufügen" aus.** Wenn Sie aufgefordert werden, einen **Anwendungs-ID-URI festlegen,** legen Sie den Wert auf , ersetzt durch `api://localhost:3000/YOUR_APP_ID_HERE` die `YOUR_APP_ID_HERE` Anwendungs-ID. Wählen Sie **"Speichern" aus, und fahren Sie fort.**
+1. Wählen Sie **API verfügbar machen aus.** Wählen Sie **im Abschnitt Durch diese API definierte** Bereiche die Option Bereich hinzufügen **aus.** Wenn Sie zum Festlegen eines **Anwendungs-ID-URI** aufgefordert werden, legen Sie den Wert auf , und ersetzen Sie durch `api://localhost:3000/YOUR_APP_ID_HERE` die `YOUR_APP_ID_HERE` Anwendungs-ID. Wählen **Sie Speichern aus, und fahren Sie fort.**
 
-1. Füllen Sie die Felder wie folgt aus, und wählen Sie Bereich **hinzufügen aus.**
+1. Füllen Sie die Felder wie folgt aus, und wählen **Sie Bereich hinzufügen aus.**
 
     - **Bereichsname:**`access_as_user`
     - **Wer kann zustimmen?: Administratoren und Benutzer**
     - **Anzeigename der Administrator-Zustimmung:**`Access the app as the user`
-    - **Beschreibung der Administrator-Zustimmung:**`Allows Office Add-ins to call the app's web APIs as the current user.`
+    - **Administrator-Zustimmungsbeschreibung:**`Allows Office Add-ins to call the app's web APIs as the current user.`
     - **Anzeigename der Benutzer zustimmung:**`Access the app as you`
-    - **Beschreibung der Benutzer zustimmung:**`Allows Office Add-ins to call the app's web APIs as you.`
+    - **Benutzer-Zustimmungsbeschreibung:**`Allows Office Add-ins to call the app's web APIs as you.`
     - **Status: Aktiviert**
 
     ![Screenshot des Bereichsformulars hinzufügen](images/add-scope.png)
 
-1. Wählen Sie **im Abschnitt "Autorisierte Clientanwendungen"** die Option **"Clientanwendung hinzufügen" aus.** Geben Sie eine Client-ID aus der folgenden Liste ein, aktivieren Sie den Bereich unter **"Autorisierte Bereiche",** und wählen Sie **"Anwendung hinzufügen" aus.** Wiederholen Sie diesen Vorgang für alle Client-IDs in der Liste.
+1. Wählen Sie **im Abschnitt Autorisierte Clientanwendungen** die Option **Clientanwendung hinzufügen aus.** Geben Sie eine Client-ID aus der folgenden Liste ein, aktivieren Sie den Bereich unter **Autorisierte** Bereiche, und wählen Sie **Anwendung hinzufügen aus.** Wiederholen Sie diesen Vorgang für alle Client-IDs in der Liste.
 
     - `d3590ed6-52b3-4102-aeff-aad2292ab01c` (Microsoft Office)
     - `ea5a67f6-b6f3-4338-b240-c655ddc3cc8e` (Microsoft Office)
